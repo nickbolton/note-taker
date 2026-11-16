@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import AVFoundation
 
 public final class LiveDictationService: DictationService {
   
@@ -20,7 +21,7 @@ public final class LiveDictationService: DictationService {
     self.audioListener = audioListener
   }
   
-  public func dictate() -> AsyncThrowingStream<String, Error> {
+  public func dictate() -> AsyncThrowingStream<DictationEvent, Error> {
     AsyncThrowingStream { continuation in
       let task = Task {
         do {
@@ -30,18 +31,41 @@ public final class LiveDictationService: DictationService {
           // Send audio while independently receiving text.
           try await withThrowingTaskGroup(of: Void.self) { group in
             group.addTask {
-              for await buffer in audio {
-                try Task.checkCancellation()
-                try await connection.send(buffer)
+              // Forward capture immediately; network backpressure must not delay the UI.
+              let (pendingAudio, pendingContinuation) =
+                AsyncStream<AVReadOnlyAudioPCMBuffer>.makeStream(
+                  bufferingPolicy: .bufferingNewest(10)
+                )
+              try await withThrowingTaskGroup(of: Void.self) { sendGroup in
+                sendGroup.addTask {
+                  defer { pendingContinuation.finish() }
+                  for await buffer in audio {
+                    try Task.checkCancellation()
+                    continuation.yield(.audioBuffer(buffer))
+                    pendingContinuation.yield(buffer)
+                  }
+                }
+                sendGroup.addTask {
+                  for await buffer in pendingAudio {
+                    try Task.checkCancellation()
+                    try await connection.send(buffer)
+                  }
+                  await connection.close()
+                }
+                do {
+                  try await sendGroup.waitForAll()
+                } catch {
+                  sendGroup.cancelAll()
+                  pendingContinuation.finish()
+                  throw error
+                }
               }
-
-              await connection.close()
             }
 
             group.addTask {
               for try await text in connection.results {
                 try Task.checkCancellation()
-                continuation.yield(text)
+                continuation.yield(.transcription(text))
               }
             }
 

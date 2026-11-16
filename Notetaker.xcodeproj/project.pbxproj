@@ -25,9 +25,9 @@
 		92E8A87E30AB509E00009E0F /* LiveDictationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E8A87D30AB509E00009E0F /* LiveDictationService.swift */; };
 		92E8A88430AB519C00009E0F /* AudioListenerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E8A88330AB519C00009E0F /* AudioListenerService.swift */; };
 		92E8A88630AB51B700009E0F /* MicrophoneListenerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E8A88530AB51B700009E0F /* MicrophoneListenerService.swift */; };
-		92E8A88930AB7B9E00009E0F /* Untitled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E8A88830AB7B9400009E0F /* Untitled.swift */; };
 		92E8A88C30AB7BDA00009E0F /* AudioAmplitudeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E8A88B30AB7BDA00009E0F /* AudioAmplitudeView.swift */; };
 		92E8A88E30AB7BFC00009E0F /* TimeElapsedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E8A88D30AB7BFC00009E0F /* TimeElapsedView.swift */; };
+		92E8A89030AB8E7400009E0F /* DictationTranslationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E8A88F30AB8E7300009E0F /* DictationTranslationsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,9 +49,9 @@
 		92E8A87D30AB509E00009E0F /* LiveDictationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveDictationService.swift; sourceTree = "<group>"; };
 		92E8A88330AB519C00009E0F /* AudioListenerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioListenerService.swift; sourceTree = "<group>"; };
 		92E8A88530AB51B700009E0F /* MicrophoneListenerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrophoneListenerService.swift; sourceTree = "<group>"; };
-		92E8A88830AB7B9400009E0F /* Untitled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Untitled.swift; sourceTree = "<group>"; };
 		92E8A88B30AB7BDA00009E0F /* AudioAmplitudeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAmplitudeView.swift; sourceTree = "<group>"; };
 		92E8A88D30AB7BFC00009E0F /* TimeElapsedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeElapsedView.swift; sourceTree = "<group>"; };
+		92E8A88F30AB8E7300009E0F /* DictationTranslationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictationTranslationsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,11 +124,11 @@
 			isa = PBXGroup;
 			children = (
 				92E8A88A30AB7BA400009E0F /* DictationListeningControl */,
-				92E8A88830AB7B9400009E0F /* Untitled.swift */,
 				9212F24E30AA283D0058623A /* DictationView.swift */,
 				9212F24F30AA283D0058623A /* DictationViewModel.swift */,
 				9212F26230AB08070058623A /* DictationReadyView.swift */,
 				9212F26830AB093B0058623A /* DictationListeningContainer.swift */,
+				92E8A88F30AB8E7300009E0F /* DictationTranslationsView.swift */,
 			);
 			path = Dictation;
 			sourceTree = "<group>";
@@ -285,7 +285,7 @@
 				92E8A87C30AB509300009E0F /* DictationService.swift in Sources */,
 				9212F25230AA283D0058623A /* DictationView.swift in Sources */,
 				92E8A87A30AB504400009E0F /* StubbedTranscriptionNetworkService.swift in Sources */,
-				92E8A88930AB7B9E00009E0F /* Untitled.swift in Sources */,
+				92E8A89030AB8E7400009E0F /* DictationTranslationsView.swift in Sources */,
 				9212F26330AB08070058623A /* DictationReadyView.swift in Sources */,
 				92E8A88430AB519C00009E0F /* AudioListenerService.swift in Sources */,
 				9212F26130AB04820058623A /* NotetakerViewModel.swift in Sources */,
@@ -459,8 +459,8 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MARKETING_VERSION = 1.0;
@@ -508,8 +508,8 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MARKETING_VERSION = 1.0;

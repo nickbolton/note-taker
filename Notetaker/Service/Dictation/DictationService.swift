@@ -6,7 +6,13 @@
 //
 
 import Foundation
+import AVFoundation
+
+public enum DictationEvent: Sendable {
+  case audioBuffer(AVReadOnlyAudioPCMBuffer)
+  case transcription(String)
+}
 
 public protocol DictationService: Sendable {
-  func dictate() -> AsyncThrowingStream<String, Error>
+  func dictate() -> AsyncThrowingStream<DictationEvent, Error>
 }

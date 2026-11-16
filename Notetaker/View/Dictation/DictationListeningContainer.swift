@@ -86,7 +86,14 @@ struct DictationListeningContainer: View {
       VStack {
         Spacer()
         VStack {
-          Spacer()
+          DictationTranslationsView(
+            model: model,
+          )
+          .frame(
+            maxWidth: .infinity,
+            maxHeight: model.state.isExpanded ? .infinity : 0.0,
+          )
+          
           DictationListeningControl(
             model: model,
           )
@@ -115,7 +122,7 @@ struct DictationListeningContainer: View {
             .opacity(model.state.isReady ? 0.0 : 1.0)
         }
         .shadow(
-          color: .black.opacity(model.state.isExpanded ? 0.3 : 0.0),
+          color: .black.opacity(!model.state.isReady ? 0.3 : 0.0),
           radius: 18,
           y: 6,
         )
@@ -134,6 +141,7 @@ struct DictationListeningContainer: View {
           setCollapsedState()
         }
       case (.ready, .expanded):
+        model.isTransitioning = true
         listenerBackgroundOpacity = 1.0
         listenerOpacity = 1.0
         withAnimation(.defaultSpring) {
@@ -141,7 +149,8 @@ struct DictationListeningContainer: View {
         } completion: {
           readyOpacity = 0.0
         }
-      case (.collapsed, .ready):
+      case (.collapsed, .ready), (.expanded, .ready):
+        model.isTransitioning = true
         withAnimation(.defaultSpring) {
           setReadyState()
         } completion: {
@@ -162,6 +171,7 @@ struct DictationListeningContainer: View {
     cornerRadius = Config.readyCornerRadius
     maxWidth = Config.readySize
     bottomPadding = Config.defaultBottomPadding
+    model.isTransitioning = false
   }
   
   private func setExpandedState() {
@@ -169,12 +179,14 @@ struct DictationListeningContainer: View {
     height = Config.expandedHeight
     cornerRadius = Config.expandedCornerRadius
     bottomPadding = Config.expandedBottomPadding
+    model.isTransitioning = false
   }
   
   private func setCollapsedState() {
     height = Config.collapsedHeight
     cornerRadius = height / 2.0
     bottomPadding = Config.defaultBottomPadding
+    model.isTransitioning = false
   }
 }
 

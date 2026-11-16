@@ -25,7 +25,7 @@ public final class MicrophoneListenerService: AudioListenerService {
 
     try input.installAudioTap(
       onBus: 0,
-      bufferSize: 4096,
+      bufferSize: 1024,
       format: format
     ) { buffer, _ in
       continuation.yield(buffer)
